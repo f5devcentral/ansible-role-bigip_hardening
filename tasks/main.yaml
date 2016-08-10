@@ -1,1 +1,17 @@
 ---
+
+# SSHD settings
+- name: STIG NET1645
+  bigip_sshd:
+      inactivityTimeout: bigip_sshd_timeout
+      banner: "{{ bigip_sshd_banner }}"
+      bannerText: "{{ bigip_sshd_banner_text }}"
+      include: bigip_sshd_include
+
+# NTP settings
+- name: STIG NET0812
+  bigip_device_ntp:
+      servers: bigip_ntp_servers
+
+# Global Settings; HTTPD UI Banner
+- name: pdcloud space
