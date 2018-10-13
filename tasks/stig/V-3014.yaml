@@ -1,0 +1,7 @@
+---
+
+- name: Set the web UI timeout to 3600600 seconds
+  bigip_device_httpd:
+    auth_pam_idle_timeout: "{{ bigip_hardening_auth_idle_timeout }}"
+    provider: "{{ provider }}"
+

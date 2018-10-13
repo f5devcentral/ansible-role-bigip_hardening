@@ -1,0 +1,8 @@
+---
+
+- name: Remove the default 'public' SNMP community
+  bigip_snmp_community:
+    name: public
+    source: default
+    state: absent
+    provider: "{{ provider }}"

@@ -1,0 +1,6 @@
+---
+
+- name: Ensure the system administrator will ensure SSH timeout value is set to 60 seconds or less
+  bigip_device_sshd:
+    inactivity_timeout: "{{ bigip_hardening_sshd_timeout }}"
+    provider: "{{ provider }}"

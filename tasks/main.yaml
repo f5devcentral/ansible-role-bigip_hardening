@@ -1,17 +1,26 @@
 ---
 
-# SSHD settings
-- name: STIG NET1645
-  bigip_sshd:
-      inactivityTimeout: bigip_sshd_timeout
-      banner: "{{ bigip_sshd_banner }}"
-      bannerText: "{{ bigip_sshd_banner_text }}"
-      include: bigip_sshd_include
+- name: Setup provider
+  set_fact:
+    provider:
+      server: "{{ bigiq_onboard_server }}"
+      server_port: "{{ bigiq_onboard_server_port }}"
+      user: "{{ bigiq_onboard_user }}"
+      password: "{{ bigiq_onboard_password }}"
+      validate_certs: "{{ bigiq_onboard_validate_certs }}"
+      transport: "{{ bigiq_onboard_transport }}"
+
+- import_tasks: stig/V-5612.yaml
+- import_tasks: stig/V-28784.yaml
+
+- import_tasks: nist/800-53-ac-8.yaml
+- import_tasks: nist/800-53-ia-5-1.yaml
 
 # NTP settings
 - name: STIG NET0812
   bigip_device_ntp:
-      servers: bigip_ntp_servers
+    servers: bigip_ntp_servers
+    provider: "{{ provider }}"
 
 # Global Settings; HTTPD UI Banner
 - name: pdcloud space

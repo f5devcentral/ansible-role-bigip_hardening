@@ -1,0 +1,7 @@
+---
+
+- name: Ensure the system usage notification
+  bigip_device_sshd:
+    banner: "{{ bigip_hardening_sshd_banner }}"
+    banner_text: "{{ bigip_hardening_sshd_banner_text }}"
+    provider: "{{ provider }}"

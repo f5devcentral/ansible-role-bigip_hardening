@@ -1,11 +1,10 @@
-# bigip-hardening
+# Ansible Role: BIG-IP Hardening
 
-Ansible role to automate base BIG-IP hardening, and STIG/SRG configuration
+Ansible role to automate base BIG-IP hardening, and STIG/SRG configuration.
 
 ## Requirements
 
-This role requires Ansible 2.1 or higher and platform requirements are listed in the
-metadata file.
+* Ansible 2.2 or greater
 
 ## Resolutions
 
@@ -19,26 +18,75 @@ this role:
   * NIST SP 800-53r4 - Session Locking and Termination — AC-11, AC-12 (Advice-only block)
   * NIST SP 800-53r4 / STIG NET0812 - NTP Configuration — AU-8(1,2)
   * STIG NET1645 - SSHD Lockdown
-  * STIG NET0405 - Call Home Disable.
+  * STIG NET0405 - Call Home Disable
   * STIG NET1665 - Remove default SNMP communities
   * STIG NET0700 - Appliance Mode
 
 ## Role Variables
-The variables that can be passed to this role and a brief description about them are
-as follows.
+
+Available variables are listed below, along with default values (see `defaults/main.yml`):
+
+    bigiq_hardening_server: localhost
+    bigiq_hardening_server_port: 443
+    bigiq_hardening_user: admin
+    bigiq_hardening_password: secret
+    bigiq_hardening_validate_certs: no
+    bigiq_hardening_transport: rest
+    bigiq_hardening_timeout: 120
+
+Establishes initial connection to your BIG-IP. These values are substituted into
+your ``provider`` module parameter.
+
+    bigip_hardening_sshd_banner: enabled
+
+Specifies whether the SSHD banner should be enabled on the BIG-IP.
+
+    bigip_hardening_sshd_banner_text
+    bigip_hardening_sshd_include
+    bigip_hadening_sshd_timeout
 
 
-```
+    bigip_hardening_ntp_servers
 
-```
+Specifies NTP servers to define on the BIG-IP.
 
-## Credential storage
 
-Because this role includes usage of credentials to access your BIG-IP, I
-recommend that you supply these variables in an ansible-vault encrypted
-file.
+## Dependencies
 
-This can be supplied out-of-band of this role
+None.
+
+## Example Playbook
+
+    - name: Run hardening tasks on BIG-IP
+      hosts: bigip
+      vars_files:
+        - vars/main.yml
+      roles:
+        - { role: f5devcentral.bigip_hardening }
+
+*Inside `vars/main.yml`*:
+
+    bigiq_onboard_server: bigiq01.domain.org
+    bigiq_onboard_password: secret
+    bigiq_onboard_new_root_password: New_Admin_Secret123
+    bigiq_onboard_old_root_password: default
+    bigiq_onboard_new_admin_password: New_Root_Secret123
+    bigiq_onboard_old_admin_password: admin
+    bigiq_onboard_master_passphrase: M@sterPassphrase1234
+    bigiq_onboard_dns_nameservers:
+      - 10.10.10.10
+    bigiq_onboard_dns_search:
+      - domain.org
+    bigiq_onboard_timezone: America/Los_Angeles
+    bigiq_onboard_license_key: XXXXX-XXXXX-XXXXX-XXXXX-XXXXXXX
+
+## License
+
+Apache
+
+## Author Information
+
+This role was created in 2018 by [Tim Rupp](https://github.com/caphrim007).
 
 ## Credits
 
@@ -47,3 +95,11 @@ individuals
 
   * https://github.com/Mikej81/PowerSRG
   * https://github.com/dnkolegov/bigipsecurity
+
+## References
+
+* [STIG NET1639 - Idle Timeouts for Management Access](https://www.stigviewer.com/stig/free_space_optics_device/2013-03-14/finding/V-3014)
+* [STIG NET0812 - NTP Configuration](https://www.stigviewer.com/stig/free_space_optics_device/2013-03-14/finding/V-23747)
+* [STIG NET1645 - SSHD Lockdown](https://www.stigviewer.com/stig/wlan_bridge/2011-10-10/finding/V-5612)
+* [STIG NET0405 - Call Home Disable](https://www.stigviewer.com/stig/infrastructure_router/2015-09-21/finding/V-28784)
+* https://www.stigviewer.com/stig/f5_big-ip_local_traffic_manager_11.x/

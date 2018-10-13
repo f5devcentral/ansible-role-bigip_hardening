@@ -1,0 +1,7 @@
+---
+
+- name: Disable automatic update checking and phoning home
+  bigip_software_update:
+    auto_check: no
+    auto_phone_home: no
+    provider: "{{ provider }}"

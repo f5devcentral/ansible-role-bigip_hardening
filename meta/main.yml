@@ -1,13 +1,17 @@
 ---
 galaxy_info:
-    author: "Tim Rupp"
-    company: F5 Networks
-    license: Apache 2.0
-    min_ansible_version: 2.2
-    platforms:
-        - name: Ubuntu
-          versions:
-              - all
-    categories:
-        - networking:f5:bigip
+  role_name: bigip_hardening
+  author: caphrim007
+  description: Ansible role to automate base BIG-IP hardening, and STIG/SRG configuration.
+  company: F5 Networks
+  license: Apache
+  min_ansible_version: 2.2
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+  galaxy_tags:
+    - f5
+    - networking
+    - bigip
 dependencies: []

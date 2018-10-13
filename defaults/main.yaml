@@ -1,7 +1,7 @@
 ---
 
-bigip_sshd_banner: "enabled"
-bigip_sshd_banner_text: >
+bigip_hardening_sshd_banner: enabled
+bigip_hardening_sshd_banner_text: |
     You are accessing a U.S. Government (USG) Information System (IS) that is
     provided for USG-authorized use only. By using this IS (which includes any
     device attached to this IS), you consent to the following conditions:
@@ -27,14 +27,12 @@ bigip_sshd_banner_text: >
     representation or services by attorneys, psychotherapists, or clergy, and
     their assistants. Such communications and work product are private and
     confidential. See User Agreement for details.
-bigip_sshd_include:
-    - "Protocol 2"
-    - "MaxAuthTries 3"
-    - "Ciphers aes128-ctr,aes192-ctr,aes256-ctr"
-bigip_sshd_timeout: 600
-bigip_ntp_servers:
-    - pool.ntp.org
-bigip_server: "localhost"
-bigip_port: 443
-bigip_username: "admin"
-bigip_password: "admin"
+bigip_hardening_sshd_include:
+  - Protocol 2
+  - MaxAuthTries 3
+  - Ciphers aes128-ctr,aes192-ctr,aes256-ctr
+bigip_hardening_sshd_timeout: 60
+bigip_hardening_ntp_servers:
+  - pool.ntp.org
+  - time.google.com
+bigip_hardening_auth_idle_timeout: 600

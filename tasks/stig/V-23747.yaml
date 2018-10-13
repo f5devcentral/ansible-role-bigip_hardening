@@ -1,0 +1,6 @@
+---
+
+- name: Set NTP servers
+  bigip_device_ntp:
+    ntp_servers: "{{ bigip_hardening_ntp_servers }}"
+    provider: "{{ provider }}"
